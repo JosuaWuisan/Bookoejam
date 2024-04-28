@@ -1,30 +1,22 @@
-const express = require('express');
+const express = require("express");
+const bookController = require("./src/controller/bookController");
+const { connectDB } = require("./repositories/bookRepository");
+
 const app = express();
-const bodyParser = require('body-parser');
-const adminController = require('./src/booekjam/components/comcontroller'); // path 
+const PORT = 3000;
 
-const hostname = '127.0.0.1';
-const port = 3000;
+app.use(express.json());
+app.use("/api/books", bookController);
 
-// Gunakan body-parser untuk parsing JSON
-app.use(bodyParser.json());
+async function startServer() {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error starting server:", error);
+  }
+}
 
-// Route untuk halaman utama
-app.get('/', (req, res) => {
-  const data = `
-    <body>
-      <h1>Bookoejam</h1>
-      <blockquote>backendclass-final</blockquote>
-      <q>...</q>
-    </body>
-  `;
-  res.status(200).send(data);
-});
-
-// Gunakan controller untuk path '/api'
-app.use('/api', adminController);
-
-// Mulai server Express
-app.listen(port, hostname, () => {
-  console.log(`Server Running at: http://${hostname}:${port}`);
-});
+startServer();
