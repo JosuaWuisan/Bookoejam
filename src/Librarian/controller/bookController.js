@@ -40,8 +40,10 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
+  const idInt = parseInt(id);
+
   try {
-    const updatedBook = await bookService.updateBook(id, req.body);
+    const updatedBook = await bookService.updateBook(idInt, req.body);
     if (updatedBook) {
       res.json(updatedBook);
     } else {
@@ -55,8 +57,9 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
+  const idInt = parseInt(id);
   try {
-    const result = await bookService.deleteBook(id);
+    const result = await bookService.deleteBook(idInt);
     if (result) {
       res.json({ message: "Book deleted successfully" });
     } else {

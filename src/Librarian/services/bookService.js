@@ -1,4 +1,4 @@
-const bookRepository = require("../bookjam/components/repositories/bookRepository");
+const bookRepository = require("../repositories/bookRepository");
 
 async function addBook(bookData) {
   return await bookRepository.addBook(bookData);

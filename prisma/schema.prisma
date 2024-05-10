@@ -3,6 +3,7 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,16 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  contact   String
+}
+
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  role      String
+  role      Role     // Changed to an enum type for roles
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Book {
+model Librarian {
   id        Int      @id @default(autoincrement())
   title     String
   author    String
@@ -39,4 +49,11 @@ model Loan {
   returned  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// Define the enum type for roles
+enum Role {
+  ADMIN
+  USER
+  LIBRARIAN
 }

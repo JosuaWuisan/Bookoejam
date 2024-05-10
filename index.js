@@ -1,12 +1,18 @@
 const express = require("express");
-const bookController = require("./src/controller/bookController");
-const { connectDB } = require("./repositories/bookRepository");
+const bookController = require("./src/Librarian/controller/bookController");
+const adminController = require("./src/Admin/controller/adminController");
+const usercontroller = require("./src/User/controller/usercontroller");
+const loancontroller = require("./src/Loan/controller/loancontroller");
+const { connectDB } = require("./database");
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 
 app.use(express.json());
 app.use("/api/books", bookController);
+app.use("/api/admins", adminController);
+app.use("/api/users", usercontroller);
+app.use("/api/loans/", loancontroller);
 
 async function startServer() {
   try {
