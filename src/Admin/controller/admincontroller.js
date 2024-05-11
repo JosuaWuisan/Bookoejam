@@ -1,11 +1,11 @@
 const express = require("express");
 const adminService = require("../services/adminservices");
-const { connectDB } = require("C:/Users/user/Documents/Bookoejam/database");
+const { connectDB } = require("../../../database");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const admin = await adminService.createAdmin(req.body);
+    const admin = await adminService.createNewAdmin(req.body);
     res.json(admin);
   } catch (error) {
     console.error("Error adding new admin:", error);
@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const admins = await adminService.getAllAdmins();
+    const admins = await adminService.getAllData();
     res.json(admins);
   } catch (error) {
     console.error("Error fetching admins:", error);
@@ -38,10 +38,10 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const updatedAdmin = await adminService.updateAdmin(id, req.body);
+    const updatedAdmin = await adminService.updatingAdmin(id, req.body);
     if (updatedAdmin) {
       res.json(updatedAdmin);
     } else {
@@ -56,7 +56,7 @@ router.patch("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    await adminService.deleteAdmin(id);
+    await adminService.removeAdmin(id);
     res.json({ message: "Admin deleted successfully" });
   } catch (error) {
     console.error("Error deleting admin:", error);

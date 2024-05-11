@@ -5,7 +5,7 @@ const adminRepository = require("../repositories/adminrepositories");
 
 // Get all admin data
 async function getAllData() {
-  const Data = await adminRepository.getAllAdmins();
+  const Data = await adminRepository.findData();
   return Data;
 }
 
@@ -27,7 +27,7 @@ async function createNewAdmin(adminData) {
 
 // Update admin
 async function updatingAdmin(Admin_ID, adminData) {
-  await getDataById(Admin_ID);
+  await adminRepository.findDataById(Admin_ID);
 
   const updatedAdmin = await adminRepository.updateAdmin(Admin_ID, adminData);
 
@@ -36,7 +36,7 @@ async function updatingAdmin(Admin_ID, adminData) {
 
 // Delete admin
 async function removeAdmin(Admin_ID) {
-  await getDataById(Admin_ID);
+  await adminRepository.findDataById(Admin_ID);
 
   await adminRepository.deleteAdmin(Admin_ID);
 }

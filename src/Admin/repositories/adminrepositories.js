@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const findData = async () => {
   return await prisma.admin.findMany({
     orderBy: {
-      Admin_ID: "asc",
+      id: "asc",
     },
   });
 };
@@ -14,7 +14,7 @@ const findData = async () => {
 const findDataById = async (Admin_ID) => {
   return await prisma.admin.findUnique({
     where: {
-      Admin_ID,
+      id: parseInt(Admin_ID),
     },
   });
 };
@@ -23,8 +23,9 @@ const findDataById = async (Admin_ID) => {
 const addAdmin = async (adminData) => {
   return await prisma.admin.create({
     data: {
-      User: adminData.User,
-      User_Contact: adminData.User_Contact,
+      username: adminData.username,
+      password: adminData.password,
+      contact: adminData.contact,
     },
   });
 };
@@ -33,11 +34,10 @@ const addAdmin = async (adminData) => {
 const updateAdmin = async (Admin_ID, adminData) => {
   return await prisma.admin.update({
     where: {
-      Admin_ID: parseInt(Admin_ID),
+      id: parseInt(Admin_ID),
     },
     data: {
-      User: adminData.User,
-      User_Contact: adminData.User_Contact,
+      ...adminData,
     },
   });
 };
@@ -46,7 +46,7 @@ const updateAdmin = async (Admin_ID, adminData) => {
 const deleteAdmin = async (Admin_ID) => {
   await prisma.admin.delete({
     where: {
-      Admin_ID,
+      id: parseInt(Admin_ID),
     },
   });
 };

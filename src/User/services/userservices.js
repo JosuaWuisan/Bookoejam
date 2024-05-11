@@ -7,7 +7,7 @@ const {
   addUser,
   updateUser,
   removeUser,
-} = require("../services/userservices");
+} = require("../repositories/userrepositories");
 
 // Get all data
 const getAllData = async () => {
