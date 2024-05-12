@@ -1,66 +1,63 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-// Find all data
-const findUser = async () => {
-  const findData = await prisma.user.findMany({
+// Find all user data
+const findData = async () => {
+  return await prisma.user.findMany({
     orderBy: {
-      User_ID: "asc",
+      id: "asc",
     },
   });
-
-  return findData;
 };
 
 // Find user data by id
-const findUserById = async (User_ID) => {
-  const Data = await prisma.user.findUnique({
+const findDataById = async (User_ID) => {
+  return await prisma.user.findUnique({
     where: {
-      User_ID,
+      id: parseInt(User_ID),
     },
   });
-
-  return Data;
 };
 
-// adding user data
-const addUser = async (UserData) => {
-  const newUser = await prisma.user.create({
+// Add new user data
+const addUser = async (userData) => {
+  return await prisma.user.create({
     data: {
-      User_name: UserData.User_name,
-      User_address: UserData.User_address,
-      User_contact: UserData.User_contact,
+      username: userData.username,
+      password: userData.password,
+      contact: userData.contact,
+      role: userData.role,
     },
   });
-
-  return newUser;
 };
 
+// Update user data by id
 const updateUser = async (User_ID, userData) => {
-  const updatedUser = await prisma.user.update({
+  return await prisma.user.update({
     where: {
-      User_ID: parseInt(User_ID),
+      id: parseInt(User_ID),
     },
     data: {
-      User_name: userData.User_name,
-      User_address: userData.User_address,
-      User_contact: userData.User_contact,
+      username: userData.username,
+      password: userData.password,
+      contact: userData.contact,
+      role: userData.role,
     },
   });
-  return updatedUser;
 };
 
+// Delete user data by id
 const removeUser = async (User_ID) => {
   await prisma.user.delete({
     where: {
-      User_ID,
+      id: parseInt(User_ID),
     },
   });
 };
 
 module.exports = {
-  findUser,
-  findUserById,
+  findData,
+  findDataById,
   addUser,
   updateUser,
   removeUser,

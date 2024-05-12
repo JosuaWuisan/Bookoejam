@@ -19,41 +19,46 @@ model Admin {
   username  String   @unique
   password  String
   contact   String
+  role      String
 }
 
 
 model User {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
+  username  String   @unique
   password  String
-  role      Role     // Changed to an enum type for roles
+  contact   String
+  role      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Librarian {
   id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  contact   String
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Book {
+  id        Int      @id @default(autoincrement())
   title     String
   author    String
   ISBN      String   @unique
-  quantity  Int
+  availability  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Loan {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  bookId    Int
-  dueDate   DateTime
-  returned  Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Borrow {
+  id         Int      @id @default(autoincrement())
+  borrowdate String
+  returndate String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 // Define the enum type for roles
-enum Role {
-  ADMIN
-  USER
-  LIBRARIAN
-}

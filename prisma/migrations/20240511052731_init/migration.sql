@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Borrow" ALTER COLUMN "borrowdate" SET DATA TYPE TEXT,
+ALTER COLUMN "returndate" SET DATA TYPE TEXT;

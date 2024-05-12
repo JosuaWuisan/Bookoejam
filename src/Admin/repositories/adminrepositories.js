@@ -26,6 +26,7 @@ const addAdmin = async (adminData) => {
       username: adminData.username,
       password: adminData.password,
       contact: adminData.contact,
+      role: adminData.role,
     },
   });
 };
